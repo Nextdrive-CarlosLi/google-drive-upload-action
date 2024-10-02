@@ -106,7 +106,7 @@ async function main() {
             supportsAllDrives: true,
         });
     } else {
-        actions.info(`File ${filename} already exists. Updating it.`);
+        actions.info(`File ${filename} already exists. Override it.`);
         result = await drive.files.update({
             fileId,
             media: fileData,
@@ -116,12 +116,12 @@ async function main() {
     const uploadedFileId = result.data.id;
 
     actions.setOutput('file_id', uploadedFileId);
-    console.log(`File ID: ${uploadedFileId}`);
+    actions.info(`File ID: ${uploadedFileId}`);
 
     const fileUrl = `https://drive.google.com/file/d/${uploadedFileId}/view`;
 
     actions.setOutput('file_url', fileUrl);
-    console.log(`File URL: ${fileUrl}`);
+    actions.info(`File URL: ${fileUrl}`);
 }
 
 main().catch((error) => actions.setFailed(error));
